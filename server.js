@@ -1,8 +1,9 @@
+//Dependency
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var cTable = require("console.table");
 
-
+//Create connection to mysql
 var connection = mysql.createConnection({
 
   host: "localhost",
@@ -22,7 +23,7 @@ connection.connect((err) => {
   runSearch();
 });
 
-
+//Get started
 function runSearch() {
 inquirer
   .prompt({
@@ -140,7 +141,7 @@ connection.query("SELECT * FROM department", function (err, data) {
   }
 })
 }
-
+//Add function
 function addEmployee() {
 
   lookuprole()
@@ -185,7 +186,7 @@ function addEmployee() {
     runSearch();
   });
 };
-
+//Add role
 function addRole() {
 
 lookuprole()
@@ -247,7 +248,7 @@ inquirer.prompt([
   runSearch();
 });
 };
-
+//Update
 
 function updateRole() {
 connection.query('SELECT * FROM employee', function (err, result) {
