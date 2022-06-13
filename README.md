@@ -16,7 +16,7 @@ View all Departments/Employees/Roles
 ![View_all_dep_emp_r](./image/view_emp_role_dep.jpg)
 
 Add employee
-![Add_employee](./image/add_20employee.jpg)
+![Add_employee](./image/add_employee.jpg)
 
 Add Department
 
