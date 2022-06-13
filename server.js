@@ -7,11 +7,9 @@ var cTable = require("console.table");
 var connection = mysql.createConnection({
 
   host: "localhost",
-  // port
-  port: 3306,
-  // username
+ 
   user: "root",
-  // password
+
   password: "Khadka0529&",
   database: "employee_tracker"
 });

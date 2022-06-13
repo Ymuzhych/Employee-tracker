@@ -50,5 +50,5 @@ values ('Management'),
        ('Engineering'),
        ('Accounting'),
        ('Marketing'),
-       ('HR'),
-       ('Web Dev');
+       ('HR');
+       
