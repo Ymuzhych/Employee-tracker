@@ -19,3 +19,67 @@ connection.connect(function(err){
     start();
 
 });
+//functionality
+function start(){
+    inquirer
+    .prompt([{
+        type: "list",
+        name: "start",
+        massage: "What would you like to do?",
+        choices: ["View", "Add", "Update", "Exit"]
+    }
+]).then (function(res){
+    switch (res.start){
+        case "View":
+            view();
+            break;
+        case "Add":
+            add();
+            break;
+        case "Update":
+            updateEmployee();
+            break;
+        case "Exit":
+            console.log("___________________");
+            console.log("All done");
+            console.log("___________________");
+            break;
+        default:
+            console.log("default")
+        }
+    });
+}  
+//view function
+function view(){
+    inquirer.prompt([
+        {
+            type: "list",
+            name: "view",
+            message: "Select to view:",
+            choices: ["All emploees", "By department", "By role"]
+        }
+    ]).then(function(res){
+        switch(res.view){
+            case "All emploees":
+                viewAllEmployees();
+                break;
+            case "By department":
+                viewByDepartment();
+                break;
+            case "By role":
+                viewByRole();
+                default:
+                    console.log("default");
+
+
+        }
+    });
+} 
+function viewAllEmployees(){
+    connection.query("SELECT emp.id AS ID, emp.first_name AS First, emp.last_name AS Last, emp.role_id AS Role, r.salary AS Salary, mng.last_name AS Manager, dep.name AS Department FROM employee emp LEFT JOIN employee mng ON emp.manager_id = mng.id LEFT JOIN role r ON emp.role_id = r.title LEFT JOIN department dep ON r.department_id = dep.id",
+    function(err, results){
+        if (err) throw err;
+        console.table(results);
+        start();
+    });
+}
