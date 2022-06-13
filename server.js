@@ -83,3 +83,60 @@ function viewAllEmployees(){
         start();
     });
 }
+function viewByDepartment(){
+    connection.query("SELECT * FROM department", function(err, results){
+        if (err) throw err;
+        inquirer
+        .prompt([{
+            name: "choice",
+            type: "rawlist",
+            choices: function(){
+                let choceArr = [];
+                for(i=0; i< results.length; i++){
+                    choiceArr.push(results[i].name);
+                }
+                return choiceArr;
+            },
+            massage: "Select department"
+    },
+]).then(function(answer){
+    connection.query(
+      "SELECT emp.id AS ID, emp.first_name AS First, emp.last_name AS Last, emp.role_id AS Role, r.salary AS Salary, mng.last_name AS Manager, dep.name AS Department FROM employee emp LEFT JOIN employee mng ON emp.manager_id = mng.id LEFT JOIN role r ON emp.role_id = r.title LEFT JOIN department dep ON r.department_id = dep.id WHERE dep.name =?", 
+      [answer.choice], function(er, results){
+        if(err) throw err;
+        console.table(results);
+        start();
+       }
+     )
+   });
+ });
+}
+function viewByRole(){
+    connection.query("SELECT title FROM role", function(err, results){
+        if (err) throw err;
+        inquirer
+        .prompt([{
+            name: "choice",
+            type: "rawlist",
+            choices: function(){
+                let choceArr = [];
+                for(i=0; i< results.length; i++){
+                    choiceArr.push(results[i].name);
+                }
+                return choiceArr;
+            },
+            massage: "Select role"
+    },
+]).then(function(answer){
+    console.log(answer.choice);
+    connection.query(
+      "SELECT emp.id AS ID, emp.first_name AS First, emp.last_name AS Last, emp.role_id AS Role, r.salary AS Salary, mng.last_name AS Manager, dep.name AS Department FROM employee emp LEFT JOIN employee mng ON emp.manager_id = mng.id LEFT JOIN role r ON emp.role_id = r.title LEFT JOIN department dep ON r.department_id = dep.id WHERE emp.role_id =?", 
+      [answer.choice], function(er, results){
+        if(err) throw err;
+        console.table(results);
+        start();
+       }
+     )
+   });
+ });
+}
