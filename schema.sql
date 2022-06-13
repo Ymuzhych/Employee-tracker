@@ -1,33 +1,53 @@
-DROP DATABASE IF EXISTS employee_db;
-CREATE DATABASE employee_db;
+DROP DATABASE IF EXISTS employee_tracker;
+CREATE DATABASE employee_tracker;
 
-USE employee_db;
+USE employee_tracker;
 
+CREATE TABLE employee (
+  id INT NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  role_id INT,
+  manager_id INT,
+  PRIMARY KEY (id),
+   
+    FOREIGN KEY(manager_id)
+    REFERENCES employee(id)
 
-CREATE TABLE departament(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30) UNIQUE NOT NULL 
 );
-CREATE TABLE role(
-    id INT NOT NULL AUTO_INCREMENT,
-    title VARCHAR(30),
-    salary DECIMAL,
-    departament_id INT,
-    PRIMARY KEY (id)
-);
-CREATE TABLE employee(
-    id INT NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(30),
-    last_name VARCHAR(30),
-    role_id VARCHAR(30),
-    manager_id INT
-    PRIMARY KEY (id)
-);
-INSERT INTO departament(name)
-VALUES("HR"), ("Tech"), ("Admin"), ("Management");
+INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("John", "Smith", 1, 1);
+INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("Phat", "Le", 2, 1);
+INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("James", "Zarra", 4, 1);
+INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("Poul", "Zavala", 3, 1);
+INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("Richard", "Moon", 5, 1);
+INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("Julia", "Roberts", 2, 1);
+INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("Henrry", "Jamilak", 3, 1);
+INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("Sonia", "Rodem", 1, 1 );
+INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("Jesus", "Garcia", 1, 1);
 
-INSERT INTO role(title, salary, department_id)
-VALUES("Director", 100000, 1), ("Office Manager", 75000, 2), ("Web Dev", 80000, 3);
 
-INSERT INTO employee(first_name, last_name, role_id, manager_id)
-VALUES("Verlon", "Smith", "Director", null), ("Phat", "Le", "Office Manager", 1), ("Zira", "Gara", "Web Dev", 2);
+CREATE TABLE role (
+  id INT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(30) NOT NULL,
+  salary DECIMAL NOT NULL,
+  department_id INT,
+  PRIMARY KEY (id)
+  
+);
+insert into role(title, salary, department_id) values('Manager', 120000, 1);
+insert into role(title, salary, department_id) values('Engineer', 100000, 2);
+insert into role(title, salary, department_id) values('Accountant', 52000, 3);
+insert into role(title, salary, department_id) values('Designer', 110000, 4);
+insert into role(title, salary, department_id) values('Administration', 85000, 5);
+
+CREATE TABLE department (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(30) NOT NULL,
+  PRIMARY KEY (id)
+);
+insert into department(name)
+values ('Management'),
+       ('Engineering'),
+       ('Accounting'),
+       ('Marketing'),
+       ('HR');
